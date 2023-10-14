@@ -1,73 +1,37 @@
 from manim import *
 
-class Test(Scene):
+class Example(Scene):
     def construct(self):
-        self.opening()
-        self.introduction()
+        
+        single_digit_table = Table(
+            [
+                ["0"],
+                ["2"],
+                ["4"],
+                ["0"],
+                ["2"],
+                ["4"],
+            ],
+            include_outer_lines=True,
+            row_labels=[MathTex(r"\textbf{0}"), MathTex(r"\textbf{1}"), MathTex(r"\textbf{2}"), MathTex(r"\textbf{3}"), MathTex(r"\textbf{4}"), MathTex(r"\textbf{5}")],
+            col_labels=[MathTex(r"\textbf{2}")],
+            top_left_entry=MathTex(r"\times"),
+        ).scale(0.5)
 
-    def opening(self):
-        eli5_text = MathTex(r"\text{ELI5}", color=BLUE).scale(3).shift(2*UP)
-        topic_text = MathTex(r"\text{Shamir Secret Sharing and Lagrange Interpolation}", color=WHITE).shift(1*DOWN)
-        self.play(DrawBorderThenFill(eli5_text), DrawBorderThenFill(topic_text), run_time=5)
-        self.wait(2)
+        single_digit_table.add_highlighted_cell((1,2), color=PURPLE)
+        
+        single_digit_table.add_highlighted_cell((2,1), color=PURPLE)
+        single_digit_table.add_highlighted_cell((3,1), color=PURPLE)
+        single_digit_table.add_highlighted_cell((4,1), color=PURPLE)
+        single_digit_table.add_highlighted_cell((5,1), color=PURPLE)
+        single_digit_table.add_highlighted_cell((6,1), color=PURPLE)
+        single_digit_table.add_highlighted_cell((7,1), color=PURPLE)
+        # single_digit_table.add_highlighted_cell((8,1), color=PURPLE)
+        # single_digit_table.add_highlighted_cell((9,1), color=PURPLE)
+        # single_digit_table.add_highlighted_cell((10,1), color=PURPLE)
+        # single_digit_table.add_highlighted_cell((11,1), color=PURPLE)
 
-        #clear screen
-        self.play(FadeOut(eli5_text), FadeOut(topic_text))
-
-    def introduction(self):
-        NETFLIX_IMAGE = "./scenes/assets/netflix.jpeg"
-
-        image = ImageMobject(NETFLIX_IMAGE)
-        self.play(DrawBorderThenFill(image))
-
-
-class Opening(Scene):
-    def construct(self):
-        eli5_text = MathTex(r"\text{ELI5}", color=BLUE).scale(3).shift(2*UP)
-        topic_text = MathTex(r"\text{Shamir Secret Sharing and Lagrange Interpolation}", color=WHITE).shift(1*DOWN)
-        self.play(DrawBorderThenFill(eli5_text), DrawBorderThenFill(topic_text), run_time=5)
-        self.wait(2)
-
-class Introduction(Scene):
-    def construct(self):
-        NETFLIX_IMAGE = "./scenes/assets/netflix.png"
-
-        image = ImageMobject(NETFLIX_IMAGE)
-        self.play(GrowFromCenter(image))
-
-
-
-from manim import *
-from PIL import Image
-import numpy as np
-import urllib.request
-from pathlib import Path
-
-
-class TwitterEmojiSVGMobject(SVGMobject):
-    def __init__(self, emoji, **kwargs):
-        emoji_code = '-'.join(f'{ord(c):x}' for c in emoji)
-        url = f'https://raw.githubusercontent.com/twitter/twemoji/master/assets/svg/{emoji_code}.svg'
-        path_svg = Path.cwd() / f'{emoji_code}.svg'
-        urllib.request.urlretrieve(url, path_svg)
-        SVGMobject.__init__(self, str(path_svg), **kwargs)
-        path_svg.unlink()  # delete downloaded svg again locally
-
-
-class TwitterEmoji(Scene):
-    def construct(self):
-        self.camera.background_color = BLACK
-        em = TwitterEmojiSVGMobject('🧑‍💻').scale(0.5)
-        t = Text('Twitter (SVG)').scale(2)
-        Group(em, t).arrange(DOWN).scale(1.6)
-        self.play(DrawBorderThenFill(em))
-
-        # transform emoji into a dot
-        dot = Dot(color=WHITE).scale(0.5)
-        dot.move_to(em.get_center())
-        self.play(Transform(em, dot))
-
-        self.wait(4)
+        self.add(single_digit_table)
 
 
 
@@ -76,68 +40,52 @@ class TwitterEmoji(Scene):
 
 
 
-from manim import *
-from PIL import Image
-import numpy as np
-import urllib.request
-from pathlib import Path
+        def mul_mod_6(x, y):
+            return str((x * y) % 6)
 
 
-class OpenEmojiSVGMobject(SVGMobject):
-    def __init__(self, emoji, **kwargs):
-        emoji_code = '-'.join(f'{ord(c):x}' for c in emoji)
-        emoji_code = emoji_code.upper()  # <-  needed for openmojis
-        url = f'https://raw.githubusercontent.com/hfg-gmuend/openmoji/master/color/svg/{emoji_code}.svg'
-        path_svg = Path.cwd() / f'{emoji_code}.svg'
-        urllib.request.urlretrieve(url, path_svg)
-        SVGMobject.__init__(self, str(path_svg), **kwargs)
-        path_svg.unlink()  # delete downloaded svg again locally
+        table = Table(
+            [[mul_mod_6(i, j) for j in range(6)] for i in range(6)],
+            include_outer_lines=True,
+            row_labels=[MathTex(r"\textbf{0}"), MathTex(r"\textbf{1}"), MathTex(r"\textbf{2}"), MathTex(r"\textbf{3}"), MathTex(r"\textbf{4}"), MathTex(r"\textbf{5}")],
+            col_labels=[MathTex(r"\textbf{0}"), MathTex(r"\textbf{1}"), MathTex(r"\textbf{2}"), MathTex(r"\textbf{3}"), MathTex(r"\textbf{4}"), MathTex(r"\textbf{5}")],
+            top_left_entry=MathTex(r"\times"),
+        ).scale(0.5)
+
+        table.add_highlighted_cell((1,2), color=PURPLE)
+        table.add_highlighted_cell((1,3), color=PURPLE)
+        table.add_highlighted_cell((1,4), color=PURPLE)
+        table.add_highlighted_cell((1,5), color=PURPLE)
+        table.add_highlighted_cell((1,6), color=PURPLE)
+        table.add_highlighted_cell((1,7), color=PURPLE)
+        # table.add_highlighted_cell((1,8), color=PURPLE)
+        # table.add_highlighted_cell((1,9), color=PURPLE)
+        # table.add_highlighted_cell((1,10), color=PURPLE)
+        # table.add_highlighted_cell((1,11), color=PURPLE)
+
+        
+        table.add_highlighted_cell((2,1), color=PURPLE)
+        table.add_highlighted_cell((3,1), color=PURPLE)
+        table.add_highlighted_cell((4,1), color=PURPLE)
+        table.add_highlighted_cell((5,1), color=PURPLE)
+        table.add_highlighted_cell((6,1), color=PURPLE)
+        table.add_highlighted_cell((7,1), color=PURPLE)
+        # table.add_highlighted_cell((8,1), color=PURPLE)
+        # table.add_highlighted_cell((9,1), color=PURPLE)
+        # table.add_highlighted_cell((10,1), color=PURPLE)
+        # table.add_highlighted_cell((11,1), color=PURPLE)
+
+        # color any cell with value 1 as green
+        for i in range(8):
+            for j in range(8):
+                if i < 1 or j < 1:
+                    continue
+                else:
+                    if mul_mod_6(i-2, j-2) == "1":
+                        print(i, j)
+                        if i != 1 and j != 1:
+                            table.add_highlighted_cell((i,j), color=GREEN)
 
 
-class OpenEmoji(Scene):
-    def construct(self):
-        self.camera.background_color = BLACK
-        em = OpenEmojiSVGMobject('🧑')
-        t = Text('OpenMoji (SVG)').scale(2)
-        Group(em, t).arrange(DOWN).scale(1.4)
-        self.play(DrawBorderThenFill(em))
+        #self.add(table)
 
-        # transform emoji into a dot
-        dot = Dot(color=WHITE).scale(0.5)
-        dot.move_to(em.get_center())
-        self.play(Transform(em, dot))
-
-        self.wait(4)
-
-from manim import *
-from PIL import Image
-import numpy as np
-import urllib.request
-from pathlib import Path
-
-
-class BootstrapSVGMobject(SVGMobject):
-    def __init__(self, emoji, color=BLACK, **kwargs):
-        url = f'https://raw.githubusercontent.com/twbs/icons/main/icons/{emoji}.svg'
-        path_svg = Path.cwd() / f'{emoji}.svg'
-        urllib.request.urlretrieve(url, path_svg)
-        path_svg.write_text(path_svg.read_text().replace('currentColor', color))
-        SVGMobject.__init__(self, str(path_svg), **kwargs)
-        path_svg.unlink()  # delete downloaded svg again locally
-
-
-class BootstrapEmoji(Scene):
-    def construct(self):
-        self.camera.background_color = BLACK
-        em = BootstrapSVGMobject('emoji-smile-fill', color=BLUE).scale(0.5)
-        # more at https://icons.getbootstrap.com/
-        t = Text('Bootstrap (SVG)').scale(2)
-        Group(em, t).arrange(DOWN).scale(1.4)
-        self.play(DrawBorderThenFill(em))
-
-        # transform emoji into a dot
-        dot = Dot(color=RED).scale(2)
-        dot.move_to(em.get_center())
-        self.play(Transform(em, dot))
-
-        self.wait(4)
