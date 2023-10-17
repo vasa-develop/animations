@@ -31,14 +31,10 @@ class Sequence6(Scene):
     
     
     def construct(self):
-        """
-        TODO: Animate the following:
 
-        Now, let's try to visualize how using modular arithmetic makes it
-        harder to brute force the secret.
-        """
+        modular_arithmetic_text = MathTex(r"\textbf{Modular arithmetic}", color=WHITE).scale(1.5).to_edge(UP).shift(0.5*DOWN)
 
-        secret_text = MathTex(r"\textbf{12345678}", color=WHITE).scale(2.5).shift(2*UP).shift(2*LEFT)
+        secret_text = MathTex(r"\textbf{12345678}", color=WHITE).scale(2.5).shift(UP).shift(2*LEFT)
         secret_caption_text = MathTex(r"\textbf{(secret)}", color=WHITE).scale(1.5).next_to(secret_text, RIGHT)
         secret_number_group = VGroup(secret_text, secret_caption_text)
 
@@ -57,12 +53,14 @@ class Sequence6(Scene):
         random_secret_group = VGroup(random_secret_text, random_secret_caption_text)
 
         self.play(
+            DrawBorderThenFill(modular_arithmetic_text),
             DrawBorderThenFill(secret_number_group),
             DrawBorderThenFill(random_number_group),
             Create(line),
             DrawBorderThenFill(random_secret_group)
         )
         self.add(secret_number_group, random_number_group, random_secret_group, line)
+        self.wait(0.5)
 
         new_secret_text = MathTex(
             r"\textbf{1}",
@@ -73,7 +71,7 @@ class Sequence6(Scene):
             r"\textbf{6}",
             r"\textbf{7}",
             r"\textbf{8}",
-        ).scale(2.5).shift(2*UP).shift(2*LEFT)
+        ).scale(2.5).shift(UP).shift(2*LEFT)
         new_secret_text[0].set_color(color=RED, family=True)
         new_secret_text[1].set_color(color=ORANGE, family=True)
         new_secret_text[2].set_color(color=YELLOW, family=True)
@@ -150,6 +148,7 @@ class Sequence6(Scene):
             random_secret_group,
             line
         )
+        self.wait(0.5)
 
         group = VGroup(new_secret_number_group, new_random_number_group, new_line, new_random_secret_group)
         self.add(group)
@@ -176,10 +175,12 @@ class Sequence6(Scene):
         )
 
         self.play(
+            FadeOut(modular_arithmetic_text),
             Transform(group, modular_sum_group)
         )
         self.add(modular_sum_group)
         self.remove(group)
+        self.wait(0.5)
 
         clock_1 = self.create_clock(color=RED, number_to_surround=9).shift(5*LEFT).shift(2*UP)
         clock_2 = self.create_clock(color=ORANGE, number_to_surround=3).next_to(clock_1, RIGHT, buff=0.4)
@@ -206,6 +207,7 @@ class Sequence6(Scene):
         )
         self.add(clock_group)
         self.remove(modular_sum_group)
+        self.wait(0.5)
 
         complete_table = Table(
             [
@@ -257,6 +259,7 @@ class Sequence6(Scene):
         self.play(Transform(clock_group, complete_table_group))
         self.add(complete_table_group)
         self.remove(clock_group)
+        self.wait(0.5)
 
         text_1 = MathTex(r"\textbf{10}", "\\times", color=GREEN).scale(1.8).shift(5.3*LEFT)
         text_2 = MathTex(r"\textbf{10}", "\\times", color=GREEN).scale(1.8).next_to(text_1, RIGHT, buff=0.1)
@@ -272,6 +275,7 @@ class Sequence6(Scene):
         self.play(Transform(complete_table_group, full_permutation_calculation_group))
         self.add(full_permutation_calculation_group)
         self.remove(complete_table_group)
+        self.wait(0.5)
 
         hundred_million_text = MathTex(r"\textbf{100,000,000 possible combinations}", color=RED).scale(1.5)
 
@@ -280,6 +284,7 @@ class Sequence6(Scene):
         )
         self.add(hundred_million_text)
         self.remove(full_permutation_calculation_group)
+        self.wait(0.5)
 
 
 

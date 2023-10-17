@@ -40,6 +40,7 @@ class Sequence2(Scene):
             Create(self.ticks),
             Write(self.numbers)
         )
+        self.wait(1)
 
     
     def construct(self, *args) -> [Line, VGroup, VGroup, VGroup]:
@@ -52,7 +53,7 @@ class Sequence2(Scene):
             self.play(DrawBorderThenFill(randomness_text))
             self.add(randomness_text)
         else:
-            randomness_text = args[0]
+            randomness_text = args[0][0]
 
         # show secret text
         secret_text = MathTex(r"\textbf{12345678}", color=GREEN).scale(2.5).shift(2*UP).shift(2*LEFT)
@@ -83,6 +84,7 @@ class Sequence2(Scene):
 
         self.add(secret_text)
         self.add(secret_caption_text)
+        self.wait(1)
 
         self.play(
             Transform(randomness_text, random_number_group),
@@ -90,12 +92,14 @@ class Sequence2(Scene):
 
         self.add(random_number_group)
         self.remove(randomness_text)
+        self.wait(1)
 
         self.play(
             Create(line)
         )
 
         self.add(line)
+        self.wait(1)
 
         rect_height = secret_text.get_height() + random_number_text.get_height() + 0.7
         combined_rect_1 = Rectangle(height=rect_height, width=0.8, color=YELLOW).next_to(secret_text[-1], UP, buff=0).align_to(random_number_text[-1], DOWN).shift(2.5*RIGHT + 0.2*DOWN)
@@ -117,6 +121,7 @@ class Sequence2(Scene):
 
         self.play(Create(combined_rect_1))
         self.add(combined_rect_1)
+        self.wait(1)
 
         # Display the yellow box if it exists
         if self.yellow_box:
@@ -134,10 +139,12 @@ class Sequence2(Scene):
         self.play(Transform(self.yellow_box, random_secret_modular_sum_text_1))
         self.add(random_secret_modular_sum_text_1)
         self.remove(self.yellow_box)
+        self.wait(1)
 
 
         self.play(Create(combined_rect_2))
         self.add(combined_rect_2)
+        self.wait(1)
         
         self.yellow_box = Rectangle(height=0.5, width=0.3, color=YELLOW, fill_opacity=0.3)  # Initialize variable to store the yellow box
 
@@ -156,6 +163,7 @@ class Sequence2(Scene):
         self.play(Transform(self.yellow_box, random_secret_modular_sum_text_2))
         self.add(random_secret_modular_sum_text_2)
         self.remove(self.yellow_box)
+        self.wait(1)
 
         self.play(
             FadeOut(self.circle),

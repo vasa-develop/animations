@@ -7,8 +7,12 @@ class Sequence9(Scene):
         # Create Axes
         axes = Axes(
             x_range=[0, 3],
-            y_range=[0, 5],
+            y_range=[0, 5.5],
             axis_config={"color": WHITE},
+        )
+        labels = axes.get_axis_labels(
+            MathTex(r"\textbf{x}").scale(0.7), 
+            MathTex(r"\textbf{y}").scale(0.7)
         )
 
         # Create a green dot at (0, 9)
@@ -18,8 +22,9 @@ class Sequence9(Scene):
         label = MathTex("secret = 5.00").next_to(dot, RIGHT, buff=0.1)
 
         # Add Axes and dot to the scene
-        self.play(Create(axes), Create(dot), Write(label))
-        self.add(axes, dot, label)
+        self.play(Create(axes), Create(labels), Create(dot), Write(label))
+        self.add(axes, labels, dot, label)
+        self.wait(0.5)
 
         # Move dot to (0, 0)
         def update_label(mob):
@@ -38,6 +43,7 @@ class Sequence9(Scene):
         self.play(Transform(label, point_label_0_0))
         self.add(point_label_0_0)
         self.remove(label)
+        self.wait(0.5)
 
         randomness_text = MathTex(r"\textbf{Randomness}", color=WHITE).scale(1.2)
         self.play(DrawBorderThenFill(randomness_text))
@@ -48,18 +54,14 @@ class Sequence9(Scene):
         self.play(DrawBorderThenFill(dot_1_1), Transform(randomness_text, point_label_1_1))
         self.add(dot_1_1, point_label_1_1)
         self.remove(randomness_text)
+        self.wait(0.5)
 
         line = Line(dot.get_center(), dot_1_1.get_center() + 2*(dot_1_1.get_center() - dot.get_center())).set_color(GREEN)
         line_label = MathTex(r"\textbf{Secret Line}").set_color(WHITE).scale(1.2)
 
         self.play(Create(line), DrawBorderThenFill(line_label))
         self.add(line, line_label)
-
-        """
-        TODO: Add animation for the following:
-
-        Let's try to understand what this line means here.
-        """
+        self.wait(0.5)
 
         dot_1 = Dot(point=axes.c2p(0.3, 0.3), color=GRAY)
         dot_2 = Dot(point=axes.c2p(0.6, 0.6), color=GRAY)
@@ -76,6 +78,7 @@ class Sequence9(Scene):
         self.play(Transform(line_label, dot_group))
         self.add(dot_group)
         self.remove(line_label)
+        self.wait(0.5)
 
 
         person_1 = BootstrapSVGMobject('person-fill', color=GRAY).scale(0.3).shift(3*UP).shift(4.5*LEFT)
@@ -101,6 +104,7 @@ class Sequence9(Scene):
         )
         self.add(person_group)
         self.remove(dot_group)
+        self.wait(0.5)
 
         dot_3 = Dot(point=axes.c2p(0.9, 0.9), color=GRAY)
         dot_7 = Dot(point=axes.c2p(2.1, 2.1), color=GRAY)
@@ -124,6 +128,7 @@ class Sequence9(Scene):
 
         self.add(dot_3, dot_7)
         self.remove(person_3, person_7, person_1, person_2, person_4, person_5, person_6, person_8, person_9, person_10)
+        self.wait(0.5)
 
         dot_1_1 = Dot(point=axes.c2p(1, 1), color=GRAY)
         dot = Dot().set_color(GREEN).move_to(axes.c2p(0, 0))
@@ -132,6 +137,7 @@ class Sequence9(Scene):
         self.play(Create(line))
         self.play(DrawBorderThenFill(dot_0), DrawBorderThenFill(point_label_0_0))
         self.add(line, dot_0, point_label_0_0)
+        self.wait(0.5)
 
         self.play(
             FadeOut(dot_3),
@@ -140,6 +146,7 @@ class Sequence9(Scene):
             FadeOut(point_label_0_0),
         )
         self.remove(dot_3, dot_0, line, point_label_0_0)
+        self.wait(0.5)
 
 
         # Create a dot at (0, 5)
@@ -158,6 +165,7 @@ class Sequence9(Scene):
             Create(line)
         )
         self.add(end_dot, end_dot_label, line)
+        self.wait(0.5)
 
         # Move point on x=0 from y=5 to y=0
         def update_dot_label(mob):
@@ -178,6 +186,7 @@ class Sequence9(Scene):
             FadeOut(end_dot_label),    
         )
         self.remove(line, end_dot, end_dot_label)
+        self.wait(0.5)
 
         dot_3 = Dot(point=axes.c2p(0.9, 0.9), color=GRAY)
         dot_0 = Dot(point=axes.c2p(0, 0), color=GRAY)
@@ -192,6 +201,7 @@ class Sequence9(Scene):
         self.play(DrawBorderThenFill(dot_3))
         self.play(Create(line), DrawBorderThenFill(dot_0), DrawBorderThenFill(point_label_0_0))
         self.add(dot_3, dot_0, point_label_0_0, line)
+        self.wait(0.5)
         
         self.play(FadeOut(line), FadeOut(point_label_0_0))
         self.remove(line, point_label_0_0)

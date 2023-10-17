@@ -4,13 +4,15 @@ from utils.bootstrap_svg import BootstrapSVGMobject
 class Sequence10(Scene):
     
     def construct(self):
-        # TODO: Change the quadratic curve to use (1,4), (2,9), (3,16)
-
         # Create Axes
         axes = Axes(
             x_range=[0, 3],
             y_range=[0, 5],
             axis_config={"color": WHITE},
+        )
+        labels = axes.get_axis_labels(
+            MathTex(r"\textbf{x}").scale(0.7), 
+            MathTex(r"\textbf{y}").scale(0.7)
         )
 
         dot_1 = Dot(point=axes.c2p(0.3, 0.3), color=GRAY)
@@ -26,10 +28,12 @@ class Sequence10(Scene):
 
         self.play(
             Create(axes),
+            Create(labels),
             DrawBorderThenFill(dot_3),
             DrawBorderThenFill(dot_7)
         )
         self.add(axes, dot_3, dot_7)
+        self.wait(0.5)
 
         person_1 = BootstrapSVGMobject('person-fill', color=GRAY).scale(0.3).shift(3*UP).shift(4.5*LEFT)
         person_2 = BootstrapSVGMobject('person-fill', color=GRAY).scale(0.3).shift(3*UP).shift(3.5*LEFT)
@@ -67,10 +71,12 @@ class Sequence10(Scene):
             person_10
         )
         self.remove(dot_3, dot_7)
+        self.wait(0.5)
 
         self.play(
             person_10.animate.set_color(BLUE),
         )
+        self.wait(0.5)
 
         dot_0_1 = Dot(point=axes.c2p(0, 1), color=GREEN)
         dot_1_0 = Dot(point=axes.c2p(1, 0), color=GRAY)
@@ -105,6 +111,7 @@ class Sequence10(Scene):
             dot_2_1_label,
         )
         self.remove(person_1, person_2, person_3, person_4, person_5, person_6, person_7, person_8, person_9, person_10)
+        self.wait(0.5)
 
         # Step 4: Draw a smooth curve through the points (0,1), (1,0), and (2,1)
         curve_points = [
@@ -127,10 +134,12 @@ class Sequence10(Scene):
         
         self.play(Create(curve))
         self.add(curve)
+        self.wait(0.5)
 
-        line_label = MathTex(r"\textbf{Secret Quadratic Curve}").set_color(WHITE).scale(0.7)
+        line_label = MathTex(r"\textbf{Secret Quadratic Curve}").set_color(WHITE).scale(1)
         self.play(Write(line_label))
         self.add(line_label)
+        self.wait(0.5)
 
         dot_1 = Dot(point=axes.c2p(0.3, 0.49), color=GRAY)
         dot_2 = Dot(point=axes.c2p(0.6, 0.16), color=GRAY)
@@ -147,6 +156,7 @@ class Sequence10(Scene):
         self.play(Transform(line_label, dot_group))
         self.add(dot_group)
         self.remove(line_label)
+        self.wait(0.5)
 
         person_1 = BootstrapSVGMobject('person-fill', color=GRAY).scale(0.3).shift(3*UP).shift(4.5*LEFT)
         person_2 = BootstrapSVGMobject('person-fill', color=GRAY).scale(0.3).shift(3*UP).shift(3.5*LEFT)
@@ -173,6 +183,7 @@ class Sequence10(Scene):
         )
         self.add(person_group)
         self.remove(dot_group)
+        self.wait(0.5)
 
 
         dot_3 = Dot(point=axes.c2p(1, 0), color=GRAY)
@@ -198,6 +209,7 @@ class Sequence10(Scene):
 
         self.add(dot_3, dot_7, dot_10)
         self.remove(person_3, person_7, person_1, person_2, person_4, person_5, person_6, person_8, person_9, person_10)
+        self.wait(0.5)
 
         curve_points = [
             axes.c2p(0, 1),
@@ -218,9 +230,11 @@ class Sequence10(Scene):
         curve.set_color(GREEN)
         self.play(Create(curve))
         self.add(curve)
+        self.wait(0.5)
 
         self.play(DrawBorderThenFill(dot_0), DrawBorderThenFill(point_label_0_1))
         self.add(dot_0, point_label_0_1)
+        self.wait(0.5)
 
         self.play(
             FadeOut(dot_10),
@@ -229,6 +243,13 @@ class Sequence10(Scene):
             FadeOut(point_label_0_1),
         )
         self.remove(dot_10, dot_0, curve, point_label_0_1)
+        self.wait(0.5)
+
+        self.play(
+            Indicate(dot_3, scale_factor=1.5, color=RED),
+            Indicate(dot_7, scale_factor=1.5, color=RED),
+        )
+        self.wait(0.5)
 
         # Create initial points
         p1 = axes.c2p(0, 5)
@@ -251,6 +272,7 @@ class Sequence10(Scene):
         # Add everything to the scene
         self.play(Create(dot1), Create(curve), Write(dot1_label))
         self.add(axes, dot1, curve, dot1_label)
+        self.wait(0.5)
 
         # Update function for the curve and label
         def update_curve_and_label(mob):
@@ -268,6 +290,7 @@ class Sequence10(Scene):
         )
 
         """
+        NOTE: We should skip this
         TODO: Add animation for the following:
 
         To summarise, you need at least 3 secret shares to be able to

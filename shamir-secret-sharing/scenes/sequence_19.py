@@ -1,9 +1,26 @@
 from manim import *
 from utils.bootstrap_svg import BootstrapSVGMobject
 
-class Sequence13(Scene):
+class Sequence19(Scene):
     
     def construct(self):
+        """
+        We covered a lot in this video, so let’s do a quick recap and close with a few other applications that use the same concepts that we covered in this video.
+
+We started with a naive way to share a secret between you and your friend where we solved 2 main problems:
+
+1. We added randomness to our secret using modular arithmetic to achieve perfect secrecy where we don’t leak any information about the secret from just a single secret share.
+2. We used graphs to represent our secret and randomness as points to create a secret sharing scheme which could handle scenarios where we can recover our secret with a fraction of the total distributed shares, which maintaining perfect secrecy.
+
+Next, we looked into Lagrange interpolation what showed us a method to recover a secret curve given we have threshold number of points, or shares available.
+
+Once our secret sharing scheme worked in theory, we tried to create a practical implementation for our scheme where we encountered some limitations regarding precision of fractional values due to the way computers store and operate on numbers.
+
+Next, when we tried to update our secret sharing scheme such that it does not involve any fractional values. This time we lost the power of perfect secrecy, again due to fractional values.
+
+Finally, we devised a secret sharing scheme using modular arithmetic where we can made sure that all operations such as addition, subtraction, multiplication, and division always lead to an integer, hence solving the precision and perfect secrecy issues altogether.
+        """
+
         recap_text = MathTex("Recap").set_color(WHITE).scale(1.2)
         self.play(Write(recap_text))
         self.add(recap_text)
@@ -57,13 +74,8 @@ class Sequence13(Scene):
         self.add(problem_1_text)
         self.wait(0.5)
 
-
-        self.play(
-            FadeOut(friend_left),
-            FadeOut(friend_right),
-            FadeOut(friend_left_password_text),
-            FadeOut(friend_right_password_text),
-        )
+        friend_group = VGroup(friend_left, friend_right, friend_left_password_text, friend_right_password_text)
+        
         self.wait(0.5)
 
         friend_1_emoji = BootstrapSVGMobject('person-fill', color=BLUE).scale(0.4).shift(1.5*UP + 5*LEFT)
@@ -83,25 +95,27 @@ class Sequence13(Scene):
 
         perfect_secrecy_text = MathTex(r"\textbf{Perfect Secrecy}", color=GREEN).scale(0.7).next_to(equal_to_3, direction=RIGHT) 
 
+        problem_1_group = VGroup(
+            friend_1_emoji,
+            friend_1_text,
+            friend_2_emoji,
+            friend_2_text,
+            friend_3_emoji,
+            friend_3_text,
+            equal_to_1,
+            equal_to_2,
+            equal_to_3,
+            perfect_secrecy_text
+        )
+
+        self.play(
+            TransformMatchingShapes(friend_group, problem_1_group)
+        )
+        self.wait(0.5)
 
         problem_2_text = MathTex(r"\textbf{Problem 2: Threshold Secret Sharing}", color=RED).scale(1.2).next_to(problem_1_text, direction=DOWN).shift(3*DOWN)
         self.play(Write(problem_2_text))
         self.add(problem_2_text)
-        self.wait(0.5)
-
-
-        self.play(
-            DrawBorderThenFill(friend_1_emoji),
-            DrawBorderThenFill(friend_2_emoji),
-            DrawBorderThenFill(friend_3_emoji),
-            DrawBorderThenFill(friend_1_text),
-            DrawBorderThenFill(friend_2_text),
-            DrawBorderThenFill(friend_3_text),
-            DrawBorderThenFill(equal_to_1),
-            DrawBorderThenFill(equal_to_2),
-            DrawBorderThenFill(equal_to_3),
-            DrawBorderThenFill(perfect_secrecy_text)
-        )
         self.wait(0.5)
 
         share_1 = BootstrapSVGMobject('person-fill', color=BLUE).scale(0.4).shift(2*DOWN + 3*LEFT)
@@ -118,26 +132,5 @@ class Sequence13(Scene):
             DrawBorderThenFill(unlock)
         )
         self.wait(0.5)
-
-        lock = BootstrapSVGMobject('lock-fill', color=RED).scale(0.4).next_to(arrow, direction=RIGHT, buff=0.5)
-
-        self.play(
-            share_2.animate.set_color(RED),
-            Transform(unlock, lock),
-        )
-        self.add(lock)
-        self.remove(unlock)
-        self.wait(0.5)
-
-        unlock = BootstrapSVGMobject('unlock-fill', color=GREEN).scale(0.4).next_to(arrow, direction=RIGHT, buff=0.5)
-
-        self.play(
-            share_2.animate.set_color(BLUE),
-            Transform(lock, unlock),
-        )
-        self.add(unlock)
-        self.remove(lock)
-        self.wait(0.5)
-
 
         self.wait(2)

@@ -23,6 +23,7 @@ class Sequence1(Scene):
             Transform(eli5_text, left_friend),
             Transform(topic_text, right_friend)
         )
+        self.wait(0.5)
 
         self.add(left_friend)
         self.add(right_friend)
@@ -36,14 +37,14 @@ class Sequence1(Scene):
         self.play(FadeIn(image))
 
         self.add(image)
-        self.wait(2)
+        self.wait(1)
 
         film = BootstrapSVGMobject('film', color=BLUE).shift(2*UP)
         self.play(FadeOut(image, run_time=1), FadeIn(film, run_time=1))
 
         self.add(film)
         self.remove(image)
-        self.wait(2)
+        self.wait(1)
 
         password_text_visible = MathTex(r"\textbf{Password}", color=GREEN).scale(1.2).shift(2*UP)
         password_text_invisible = MathTex(r"\textbf{Password}", color=GREEN).scale(1.2).shift(2*UP)
@@ -51,7 +52,7 @@ class Sequence1(Scene):
 
         self.add(password_text_visible)
         self.remove(film)
-        self.wait(2)
+        self.wait(1)
 
         left_friend_password_text = MathTex(r"\textbf{Pass????}", color=YELLOW).scale(1.2).next_to(left_friend, direction=UP)
         right_friend_password_text = MathTex(r"\textbf{????word}", color=YELLOW).scale(1.2).next_to(right_friend, direction=UP)
@@ -68,7 +69,7 @@ class Sequence1(Scene):
         self.remove(password_text_visible)
         self.remove(password_text_invisible)
         self.remove(film)
-        self.wait(2)
+        self.wait(1)
 
         # draw a arraw between left_friend_password_text and lock (leave some space between them)
         # Calculate the starting and ending points of the arrow
@@ -90,12 +91,15 @@ class Sequence1(Scene):
 
         self.add(left_friend_arrow)
         self.add(right_friend_arrow)
+        self.wait(1)
 
         # change the color of the arrows to RED
         self.play(
             left_friend_arrow.animate.set_color(RED),
             right_friend_arrow.animate.set_color(RED)
         )
+
+        self.wait(1)
         
         self.play(
             FadeOut(left_friend_arrow),
@@ -104,8 +108,7 @@ class Sequence1(Scene):
 
         self.remove(left_friend_arrow)
         self.remove(right_friend_arrow)
-
-        self.wait(2)
+        self.wait(1)
 
         merged_password_text_visible = MathTex(r"\textbf{Password}", color=GREEN).scale(1.2).shift(DOWN)
         merged_password_text_invisible = MathTex(r"\textbf{Password}", color=GREEN).scale(1.2).shift(DOWN)
@@ -117,7 +120,7 @@ class Sequence1(Scene):
         self.add(merged_password_text_visible)
         self.remove(left_friend_password_text)
         self.remove(right_friend_password_text)
-        self.wait(2)
+        self.wait(1)
 
         middle_arrow_start_point = merged_password_text_visible.get_center() + 0.5*UP
         middle_arrow_end_point = lock.get_center() + 0.75*(DOWN)
@@ -136,7 +139,7 @@ class Sequence1(Scene):
         self.add(middle_arrow)
         self.add(unlocked_lock)
         self.remove(lock)
-        self.wait(2)
+        self.wait(1)
 
         question_mark_text = MathTex(r"\textbf{How can we do this?}", color=RED).scale(2)
 
@@ -155,7 +158,7 @@ class Sequence1(Scene):
         self.remove(unlocked_lock)
         self.remove(left_friend)
         self.remove(right_friend)
-        self.wait(2)
+        self.wait(1)
 
         number_password_text = MathTex(r"\textbf{12345678}", color=GREEN).scale(2)
         
@@ -165,8 +168,7 @@ class Sequence1(Scene):
 
         self.add(number_password_text)
         self.remove(question_mark_text)
-
-        self.wait(2)
+        self.wait(1)
 
         # move number_password_text up and add 2 friends
         left_friend = BootstrapSVGMobject('emoji-smile-fill', color=BLUE).scale(0.5).shift(2*(DOWN+LEFT))
@@ -180,8 +182,7 @@ class Sequence1(Scene):
 
         self.add(left_friend)
         self.add(right_friend)
-
-        self.wait(2)
+        self.wait(1)
 
         number_password_text_invisible = MathTex(r"\textbf{12345678}", color=GREEN).scale(2).shift(2*UP)
         left_friend_password_text = MathTex(r"\textbf{1234}", color=YELLOW).scale(1.2).next_to(left_friend, direction=DOWN).shift(2*(UP + LEFT))
@@ -199,8 +200,7 @@ class Sequence1(Scene):
         self.add(right_friend_password_text)
         self.remove(number_password_text)
         self.remove(number_password_text_invisible)
-
-        self.wait(2)
+        self.wait(1)
 
 
         number_password_text = MathTex(r"\textbf{This approach has 2 problems!}", color=RED).scale(1.5).shift(2*UP)
@@ -209,7 +209,7 @@ class Sequence1(Scene):
         )
 
         self.add(number_password_text)
-        self.wait(2)
+        self.wait(1)
 
         problem_1_text = MathTex(r"\textbf{Problem 1: Information Leakage}", color=RED).scale(1.5).shift(2*UP)
         self.play(
@@ -218,8 +218,7 @@ class Sequence1(Scene):
 
         self.add(problem_1_text)
         self.remove(number_password_text)
-
-        self.wait(2)
+        self.wait(1)
 
         
         self.play(
@@ -233,6 +232,7 @@ class Sequence1(Scene):
         self.remove(right_friend)
         self.remove(right_friend_password_text)
         self.remove(problem_1_text)
+        self.wait(1)
 
         password_fragment = MathTex(r"\textbf{1234}", color=YELLOW).scale(2)
 
@@ -242,7 +242,7 @@ class Sequence1(Scene):
 
         self.add(password_fragment)
         self.remove(left_friend_password_text)
-
+        self.wait(1)
 
 
 
@@ -281,6 +281,7 @@ class Sequence1(Scene):
 
         self.add(full_password_group)
         self.remove(password_fragment)
+        self.wait(1)
 
         permutation_group = VGroup(text_1, text_2, text_3, text_4, underline_1, underline_2, underline_3, underline_4)
 
@@ -291,11 +292,11 @@ class Sequence1(Scene):
         self.add(permutation_group)
         self.remove(full_password_group)
         self.remove(new_password_fragment)
+        self.wait(1)
 
         self.play(
             ApplyMethod(permutation_group.shift, LEFT)
         )
-
 
         text_1 = MathTex(r"\textbf{10}", "\\times", color=YELLOW).scale(1.5).next_to(text_1, RIGHT, buff=0.1).shift(0.5*LEFT)
         text_2 = MathTex(r"\textbf{10}", "\\times", color=YELLOW).scale(1.5).next_to(text_1, RIGHT, buff=0.1)
@@ -310,6 +311,7 @@ class Sequence1(Scene):
 
         self.add(permutation_calculation_group)
         self.remove(permutation_group)
+        self.wait(1)
 
         ten_thousand_text = MathTex(r"\textbf{10,000 possible combinations}", color=YELLOW).scale(1.5)
 
@@ -319,6 +321,7 @@ class Sequence1(Scene):
 
         self.add(ten_thousand_text)
         self.remove(permutation_calculation_group)
+        self.wait(1)
 
         self.play(
             ApplyMethod(ten_thousand_text.shift, 2*UP)
@@ -341,6 +344,7 @@ class Sequence1(Scene):
             DrawBorderThenFill(vs_text),
             DrawBorderThenFill(full_permutation_calculation_group)
         )
+        self.wait(1)
 
         hundred_million_text = MathTex(r"\textbf{100,000,000 possible combinations}", color=YELLOW).scale(1.5).shift(2*DOWN)
 
@@ -350,8 +354,7 @@ class Sequence1(Scene):
 
         self.add(hundred_million_text)
         self.remove(full_permutation_calculation_group)
-
-
+        self.wait(1)
 
 
 
@@ -387,6 +390,7 @@ class Sequence1(Scene):
         self.add(group)
         self.remove(vs_text)
         self.remove(ten_thousand_text)
+        self.wait(1)
 
         self.play(
             DrawBorderThenFill(left_friend), 
@@ -395,6 +399,7 @@ class Sequence1(Scene):
 
         self.add(left_friend)
         self.add(left_friend_share)
+        self.wait(1)
 
         self.play(
             DrawBorderThenFill(equal_sign_1),
@@ -405,6 +410,7 @@ class Sequence1(Scene):
         self.add(equal_sign_1)
         self.add(middle_friend)
         self.add(middle_friend_share)
+        self.wait(1)
 
         self.play(
             DrawBorderThenFill(equal_sign_2),
@@ -415,12 +421,14 @@ class Sequence1(Scene):
         self.add(equal_sign_2)
         self.add(right_friend)
         self.add(right_friend_share)
+        self.wait(1)
 
         self.play(
             DrawBorderThenFill(bottom_group)
         )
 
         self.add(bottom_group)
+        self.wait(1)
 
         # full group includes elements from group and bottom group
         full_group = VGroup(group, bottom_group)

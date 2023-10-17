@@ -4,11 +4,22 @@ from utils.bootstrap_svg import BootstrapSVGMobject
 class Sequence8(Scene):
     
     def construct(self):
-        """
-        TODO: Add animation for 
-        
-        Now let's discuss the second problem.
-        """
+        prefect_secrecy_text = MathTex(r"\textbf{1. How to achieve perfect secrecy?}", color=BLUE).scale(1).to_edge(LEFT).shift(UP)
+        threshold_secret_sharing_text = MathTex(r"\textbf{2. Why should we use threshold secret sharing?}", color=BLUE).scale(1).next_to(prefect_secrecy_text, DOWN, buff=1.5).to_edge(LEFT)
+
+        self.play(
+            DrawBorderThenFill(prefect_secrecy_text),
+            DrawBorderThenFill(threshold_secret_sharing_text)
+        )
+        self.add(prefect_secrecy_text, threshold_secret_sharing_text)
+        self.wait(0.5)
+
+        self.play(
+            Indicate(threshold_secret_sharing_text, scale_factor=1.01, color=RED)
+        )
+        problem_group = VGroup(prefect_secrecy_text, threshold_secret_sharing_text)
+        self.wait(0.5)
+
 
         secret_text = MathTex(r"\textbf{secret}", color=RED).scale(1.3).shift(5*LEFT)
         plus_sign = MathTex(r"\textbf{+}", color=WHITE).scale(1.3).next_to(secret_text, RIGHT)
@@ -16,15 +27,13 @@ class Sequence8(Scene):
         equal_to_sign = MathTex(r"\textbf{=}", color=WHITE).scale(1.3).next_to(random_number_text, RIGHT)
         random_secret_text = MathTex(r"\textbf{random secret}").scale(1.3).next_to(equal_to_sign, RIGHT)
         random_secret_text.set_color(color=[GREEN, BLUE], family=True)
+        group = VGroup(secret_text, plus_sign, random_number_text, equal_to_sign, random_secret_text)
 
         self.play(
-            DrawBorderThenFill(secret_text),
-            DrawBorderThenFill(plus_sign),
-            DrawBorderThenFill(random_number_text),
-            DrawBorderThenFill(equal_to_sign),
-            DrawBorderThenFill(random_secret_text)
+            TransformMatchingShapes(problem_group, group)
         )
         self.add(secret_text, plus_sign, random_number_text, equal_to_sign, random_secret_text)
+        self.wait(0.5)
 
         left_person_locked = BootstrapSVGMobject('person-fill-lock', color=BLUE).scale(0.5).shift(2.5*(LEFT)).shift(DOWN)
         right_person_locked = BootstrapSVGMobject('person-fill-lock', color=BLUE).scale(0.5).shift(2.5*(RIGHT)).shift(DOWN)
@@ -41,6 +50,7 @@ class Sequence8(Scene):
             FadeOut(equal_to_sign)
         )
         self.remove(plus_sign, equal_to_sign)
+        self.wait(0.5)
 
         self.play(
             Transform(secret_text, lock),
@@ -49,6 +59,7 @@ class Sequence8(Scene):
         )
         self.add(lock, left_person_locked, right_person_locked)
         self.remove(secret_text, random_number_text, random_secret_text)
+        self.wait(0.5)
 
         self.play(
             Transform(lock, unlock),
@@ -57,6 +68,7 @@ class Sequence8(Scene):
         )
         self.add(unlock, left_person_check, right_person_check)
         self.remove(lock, left_person_locked, right_person_locked)
+        self.wait(0.5)
 
         lock = BootstrapSVGMobject('lock-fill', color=RED).scale(0.5).shift(2*(UP))
         
@@ -104,18 +116,21 @@ class Sequence8(Scene):
         )
         self.add(lock, person_1_locked, person_2_locked, person_3_locked, person_4_locked, person_5_locked, person_6_locked, person_7_locked, person_8_locked, person_9_locked, person_10_locked)
         self.remove(unlock, left_person_check, right_person_check)
+        self.wait(0.5)
 
         self.play(
             Transform(person_3_locked, person_3_x),
         )
         self.add(person_3_x)
         self.remove(person_3_locked)
+        self.wait(0.5)
 
         self.play(
             Transform(person_9_locked, person_9_x),
         )
         self.add(person_9_x)
         self.remove(person_9_locked)
+        self.wait(0.5)
 
 
         self.play(
@@ -123,12 +138,14 @@ class Sequence8(Scene):
         )
         self.add(person_1_check)
         self.remove(person_1_locked)
+        self.wait(0.5)
 
         self.play(
             Transform(person_2_locked, person_2_check),
         )
         self.add(person_2_check)
         self.remove(person_2_locked)
+        self.wait(0.5)
 
         unlock = BootstrapSVGMobject('unlock-fill', color=RED).scale(0.5).shift(2*(UP))
 
@@ -137,6 +154,7 @@ class Sequence8(Scene):
         )
         self.add(unlock)
         self.remove(lock)
+        self.wait(0.5)
 
 
         self.wait(2)

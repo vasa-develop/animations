@@ -1,4 +1,5 @@
 from manim import *
+from utils.bootstrap_svg import BootstrapSVGMobject
 
 class Sequence4(Scene):
     def construct(self):
@@ -9,16 +10,19 @@ class Sequence4(Scene):
             DrawBorderThenFill(randomness_problem_text)
         )
         self.add(randomness_problem_text)
+        self.wait(0.5)
 
         self.play(
             DrawBorderThenFill(modular_arithmetic_problem_text)
         )
         self.add(modular_arithmetic_problem_text)
+        self.wait(0.5)
 
         self.play(
             #randomness_problem_text.animate.scale(1.1).shift(RIGHT*0.5).set_color(RED)
             Indicate(randomness_problem_text, scale_factor=1.02, color=RED)
         )
+        self.wait(0.5)
 
         secret_text = MathTex(r"\textbf{????????}", color=GREEN).scale(2.5).shift(2*UP).shift(2*LEFT)
         secret_caption_text = MathTex(r"\textbf{(secret)}", color=GREEN).scale(1.5).next_to(secret_text, RIGHT)
@@ -53,6 +57,7 @@ class Sequence4(Scene):
         )
         self.add(random_secret_template_group)
         self.remove(modular_arithmetic_problem_text, randomness_problem_text)
+        self.wait(0.5)
 
         self.play(
             Transform(random_secret_template_group, random_secret_group),
@@ -62,12 +67,14 @@ class Sequence4(Scene):
         )
         self.add(random_secret_group, secret_number_group, random_number_group, line)
         self.remove(random_secret_template_group)
+        self.wait(0.5)
 
         rect_height = secret_text.get_height() + random_number_text.get_height() + random_secret_text.get_height() + 1
         combined_rect = Rectangle(height=rect_height, width=0.8, color=YELLOW).next_to(secret_text[-1], UP, buff=0).align_to(random_number_text[-1], DOWN).shift(2.5*RIGHT + 1.4*DOWN)
 
         self.play(Create(combined_rect))
         self.add(combined_rect)
+        self.wait(0.5)
 
 
         single_digit_table = Table(
@@ -107,6 +114,7 @@ class Sequence4(Scene):
         )
         self.add(single_digit_table_group)
         self.remove(random_number_group, line, random_secret_group, secret_number_group, combined_rect)
+        self.wait(0.5)
 
         complete_table = Table(
             [
@@ -158,6 +166,7 @@ class Sequence4(Scene):
         self.play(Transform(single_digit_table_group, complete_table_group))
         self.add(complete_table_group)
         self.remove(single_digit_table_group)
+        self.wait(0.5)
 
         text_1 = MathTex(r"\textbf{10}", "\\times", color=GREEN).scale(1.8).shift(5.3*LEFT)
         text_2 = MathTex(r"\textbf{10}", "\\times", color=GREEN).scale(1.8).next_to(text_1, RIGHT, buff=0.1)
@@ -173,6 +182,7 @@ class Sequence4(Scene):
         self.play(Transform(complete_table_group, full_permutation_calculation_group))
         self.add(full_permutation_calculation_group)
         self.remove(complete_table_group)
+        self.wait(0.5)
 
         hundred_million_text = MathTex(r"\textbf{100,000,000 possible combinations}", color=RED).scale(1.5)
 
@@ -181,25 +191,48 @@ class Sequence4(Scene):
         )
         self.add(hundred_million_text)
         self.remove(full_permutation_calculation_group)
+        self.wait(0.5)
 
-        """
-        TODO: Add animation for the following
+        problem_text_1 = MathTex(r"\textbf{Achieving perfect secrecy by adding}", color=RED).scale(1.2).shift(3*UP)
+        problem_text_2 = MathTex(r"\textbf{randomness to our secret}", color=RED).scale(1.2).next_to(problem_text_1, direction=DOWN)
 
-        As we saw earlier, this is the same number of combinations that you will
-        have to try if you have no secret share at all.
+        friend_1_emoji = BootstrapSVGMobject('person-fill', color=BLUE).scale(0.4).shift(5*LEFT)
+        friend_1_text = MathTex(r"\textbf{share = 1234}", color=WHITE).scale(0.7).next_to(friend_1_emoji, direction=DOWN)
+        friend_1 = VGroup(friend_1_emoji, friend_1_text)
+        equal_to_1 = MathTex(r"\textbf{=}", color=WHITE).scale(1.3).next_to(friend_1, RIGHT)
 
-        So, this shows that adding randomness to our secret number mitigates the
-        information leakage issue, thus a person with a share of the secret is as
-        clueless as a person with no secret share at all, hence achieving perfect
-        secrecy.
-        -------
+        friend_2_emoji = BootstrapSVGMobject('person-fill', color=BLUE).scale(0.4)
+        friend_2_text = MathTex(r"\textbf{share = 5678}", color=WHITE).scale(0.7).next_to(friend_2_emoji, direction=DOWN)
+        friend_2 = VGroup(friend_2_emoji, friend_2_text).next_to(equal_to_1, direction=RIGHT)
+        equal_to_2 = MathTex(r"\textbf{=}", color=WHITE).scale(1.3).next_to(friend_2, RIGHT)
 
-        No changes
+        friend_3_emoji = BootstrapSVGMobject('person-fill', color=GRAY).scale(0.4).set_color(GRAY)
+        friend_3_text = MathTex(r"\textbf{No secret share}", color=WHITE).scale(0.7).next_to(friend_3_emoji, direction=DOWN)
+        friend_3 = VGroup(friend_3_emoji, friend_3_text).next_to(equal_to_2, direction=RIGHT)
+        equal_to_3 = MathTex(r"\textbf{=}", color=WHITE).scale(1.3).next_to(friend_3, RIGHT)
 
-        Maybe show the 3 users -> perfect secrecy thing.
+        perfect_secrecy_text = MathTex(r"\textbf{Perfect Secrecy}", color=GREEN).scale(0.7).next_to(equal_to_3, direction=RIGHT) 
 
+        group = VGroup(problem_text_1, problem_text_2, friend_1, friend_2, friend_3, equal_to_1, equal_to_2, equal_to_3, perfect_secrecy_text)
 
-        """
+        self.play(
+            TransformMatchingShapes(hundred_million_text, group)
+        )
+        self.wait(0.5)
+
+        self.play(
+            Indicate(friend_1),
+            Indicate(friend_2),
+        )
+        self.wait(0.5)
+        self.play(
+            Indicate(friend_3),
+        )
+        self.wait(0.5)
+        self.play(
+            Indicate(perfect_secrecy_text),
+        )
+        self.wait(0.5)
         
         self.wait(2)
 

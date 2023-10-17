@@ -5,6 +5,7 @@ class Sequence11(Scene):
     
     def construct(self):
         """
+        NOTE: We can skip this part.
         TODO: Add animation for the following:
 
         This system works for cases where you want any 3 people out
@@ -94,37 +95,79 @@ class Sequence11(Scene):
             ]
         ).scale(0.6)
         
-        self.play(Create(table))
+        self.play(
+            Create(table)
+        )
+        self.wait(0.5)
 
-        """
-        TODO: Add animation for the following:
+        self.play(
+            Indicate(table.get_rows()[1][2][0], scale_factor=1.1, color=RED),
+            Indicate(table.get_rows()[1][2][1], scale_factor=1.1, color=RED),
+        )
+        self.wait(0.5)
 
-        In the first case, where we wanted 2 shares to be able to recover the secret,
-        we used a line, which is a polynomial of degree 1. The degree of a polynomial
-        is represented by the highest power of x in the equation of the curve. For
-        example in case of a line, the highest power of x is 1, hence it’s a polynomial
-        of degree 1.
+        self.play(
+            Indicate(table.get_rows()[1][0], scale_factor=1.1, color=RED),
+            Indicate(table.get_rows()[1][1], scale_factor=1.1, color=RED),
+        )
+        self.wait(0.5)
 
-        In the second case, where we wanted 3 shares to be able to recover the secret,
-        we used a quadratic curve, which is a polynomial of degree 2.
 
-        Similarly, if we want 4 shares to be able to recover the secret, we will use
-        a cubic curve, which is a polynomial of degree 3. Similar to other cases,
-        if you have less than 4 shares, say for example 3, you will be able to find
-        infinite cubic curves which pass through 3 given points.
 
-        This pattern follows as we increase the number of shares needed to recover
-        the secret.
 
-        To generalize this system you can imagine if you have a secret that you
-        want to distribute among your "k" friends in such a way that any "n" friends
-        can come together to recover the secret, all we need to do is to represent
-        the secret as a point on the graph and choose n-1 points to introduce
-        randomness, which will form the secret curve. Then you can choose any
-        "k" points/shares from this curve and distribute them among your "k" friends.
-        Then any "n" or more friends can come together and recover the secret curve,
-        which we can use to recover the original secret value.
-        """
+        self.play(
+            Indicate(table.get_rows()[2][2][0], scale_factor=1.1, color=RED),
+            Indicate(table.get_rows()[2][2][1], scale_factor=1.1, color=RED),
+            Indicate(table.get_rows()[2][2][2], scale_factor=1.1, color=RED),
+        )
+        self.wait(0.5)
+
+        self.play(
+            Indicate(table.get_rows()[2][0], scale_factor=1.1, color=RED),
+            Indicate(table.get_rows()[2][1], scale_factor=1.1, color=RED),
+        )
+        self.wait(0.5)
+
+
+        self.play(
+            Indicate(table.get_rows()[3][2][0], scale_factor=1.1, color=RED),
+            Indicate(table.get_rows()[3][2][1], scale_factor=1.1, color=RED),
+            Indicate(table.get_rows()[3][2][2], scale_factor=1.1, color=RED),
+            Indicate(table.get_rows()[3][2][3], scale_factor=1.1, color=RED),
+        )
+        self.wait(0.5)
+        
+        self.play(
+            Indicate(table.get_rows()[3][0], scale_factor=1.1, color=RED),
+            Indicate(table.get_rows()[3][1], scale_factor=1.1, color=RED),
+        )
+        self.wait(0.5)
+
+        lagrange_interpolation_text = MathTex(r"\textbf{Lagrange Interpolation}", color=BLUE).scale(2).to_edge(UP).shift(DOWN)
+
+        quadratic_threshold = VGroup(
+            person_1.copy().set_color(BLUE), person_2.copy().set_color(BLUE), person_3.copy().set_color(BLUE), person_4.copy(), person_5.copy(), person_6.copy(), person_7.copy()
+        ).next_to(lagrange_interpolation_text, DOWN, buff=1.5)
+
+        quadratic_polynomial = MathTex(
+            r"f(x) &= secret + ax + bx^2",
+            substrings_to_isolate="x"
+        ).next_to(quadratic_threshold, DOWN, buff=1.5)
+        quadratic_polynomial.set_color_by_tex("x", RED)
+
+        arrow = Arrow(start=quadratic_threshold.get_bottom(), end=quadratic_polynomial.get_top(), color=WHITE)
+
+        new_group = VGroup(quadratic_threshold, quadratic_polynomial, arrow)
+
+        self.play(
+            TransformMatchingShapes(table, new_group)
+        )
+        self.wait(0.5)
+
+        self.play(
+            DrawBorderThenFill(lagrange_interpolation_text)
+        )
+        self.wait(0.5)
 
 
         self.wait(2)

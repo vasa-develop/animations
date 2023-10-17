@@ -40,16 +40,12 @@ class Sequence16(Scene):
             Create(self.ticks),
             Write(self.numbers)
         )
+        self.wait(0.5)
 
     def construct(self):
-        """
-        TODO: Add animation for 
-        
-        Let’s try to do this using our old friend, modular arithmetic.
-        """
-
         modular_arithmetic_problem_text = MathTex(r"\textbf{Modular Arithmetic}", color=BLUE).scale(1.5).shift(3*UP)
         self.play(Write(modular_arithmetic_problem_text))
+        self.wait(0.5)
 
         self.create_clock()
 
@@ -65,11 +61,13 @@ class Sequence16(Scene):
             Write(division_text)
         )
         self.add(addition_text, substraction_text, multiplication_text, division_text)
+        self.wait(0.5)
 
         modular_addition_question = MathTex(r"4 + 2 \equiv \; ? \mod 5", color=WHITE).scale(1).shift(1.5*UP + LEFT)
         self.play(Transform(addition_text, modular_addition_question))
         self.add(modular_addition_question)
         self.remove(addition_text)
+        self.wait(0.5)
 
         # Display the yellow box if it exists
         if self.yellow_box:
@@ -89,6 +87,7 @@ class Sequence16(Scene):
         )
         self.add(modular_addition)
         self.remove(modular_addition_question)
+        self.wait(0.5)
 
 
 
@@ -100,6 +99,7 @@ class Sequence16(Scene):
         self.play(Transform(substraction_text, modular_substraction_question))
         self.add(modular_substraction_question)
         self.remove(substraction_text, self.yellow_box)
+        self.wait(0.5)
 
         self.yellow_box = Rectangle(height=0.5, width=0.3, color=YELLOW, fill_opacity=0.3)
 
@@ -120,7 +120,7 @@ class Sequence16(Scene):
         )
         self.add(modular_substraction)
         self.remove(self.yellow_box, modular_substraction_question)
-
+        self.wait(0.5)
 
 
 
@@ -130,6 +130,7 @@ class Sequence16(Scene):
         self.play(Transform(multiplication_text, modular_multiplication_question))
         self.add(modular_multiplication_question)
         self.remove(multiplication_text, self.yellow_box)
+        self.wait(0.5)
 
         self.yellow_box = Rectangle(height=0.5, width=0.3, color=YELLOW, fill_opacity=0.3)
 
@@ -150,7 +151,7 @@ class Sequence16(Scene):
         )
         self.add(modular_multiplication)
         self.remove(self.yellow_box, modular_multiplication_question)
-
+        self.wait(0.5)
 
 
 
@@ -160,40 +161,48 @@ class Sequence16(Scene):
         self.play(Transform(division_text, modular_division_question_1))
         self.add(modular_division_question_1)
         self.remove(division_text, self.yellow_box)
+        self.wait(0.5)
 
         modular_division_question_2 = MathTex(r"1 \times 3^{-1} \equiv \; ? \mod 5", color=WHITE).scale(1).next_to(modular_multiplication, direction=DOWN, buff=1)
         self.play(Transform(modular_division_question_1, modular_division_question_2))
         self.add(modular_division_question_2)
         self.remove(modular_division_question_1, self.yellow_box)
+        self.wait(0.5)
 
         modular_division_question_3 = MathTex(r"1 \times (multiplicative \; inverse \; of \; 3) \equiv \; ? \mod 5", color=WHITE).scale(1).next_to(modular_multiplication, direction=DOWN, buff=1)
         self.play(Transform(modular_division_question_2, modular_division_question_3))
         self.add(modular_division_question_3)
         self.remove(modular_division_question_2, self.yellow_box)
+        self.wait(0.5)
 
         modular_division_question_4 = MathTex(r"(multiplicative \; inverse \; of \; 3)", r"\times 3 \equiv \; 1 \mod 5", color=WHITE).scale(1).next_to(modular_multiplication, direction=DOWN, buff=1)
         self.play(Transform(modular_division_question_3, modular_division_question_4))
         self.add(modular_division_question_4)
         self.remove(modular_division_question_3, self.yellow_box)
+        self.wait(0.5)
 
         self.play(
             Indicate(modular_multiplication, scale_factor=1.1, color=YELLOW),
             Indicate(modular_division_question_4, scale_factor=1.1, color=YELLOW),
         )
+        self.wait(0.5)
 
         self.play(
             Indicate(modular_multiplication[0], scale_factor=1.1, color=YELLOW),
             Indicate(modular_division_question_4[0], scale_factor=1.1, color=YELLOW),
         )
+        self.wait(0.5)
 
         modular_division_question_5 = MathTex(r"1 \times (multiplicative \; inverse \; of \; 3) \equiv \; ? \mod 5", color=WHITE).scale(1).next_to(modular_multiplication, direction=DOWN, buff=1)
         self.play(Transform(modular_division_question_4, modular_division_question_5))
         self.add(modular_division_question_5)
         self.remove(modular_division_question_4, self.yellow_box)
+        self.wait(0.5)
 
         modular_division_question_6 = MathTex(r"1 \div 3 \equiv 2 \mod 5", color=WHITE).scale(1).next_to(modular_multiplication, direction=DOWN, buff=1)
         self.play(Transform(modular_division_question_5, modular_division_question_6))
         self.add(modular_division_question_6)
         self.remove(modular_division_question_5, self.yellow_box)
+        self.wait(0.5)
 
         self.wait(1)

@@ -41,6 +41,7 @@ class Sequence3(Scene):
             Create(self.ticks),
             Write(self.numbers)
         )
+        self.wait(1)
 
     
     def construct(self, *args) -> []:
@@ -84,6 +85,7 @@ class Sequence3(Scene):
                 line,
                 random_secret_group
             )
+            self.wait(1)
 
         else:
             line = args[0]
@@ -126,6 +128,7 @@ class Sequence3(Scene):
             random_number_group,
             random_secret_group
         )
+        self.wait(1)
 
         random_secret_text = MathTex(r"\textbf{93529102}").scale(2.5).shift(2*UP).shift(2*LEFT)
         random_secret_text.set_color(color=[GREEN, BLUE], family=True)
@@ -170,6 +173,7 @@ class Sequence3(Scene):
             scaled_down_random_number_group,
             scaled_down_random_secret_group
         )
+        self.wait(1)
 
         rect_height = random_secret_text.get_height() + random_number_text.get_height() + 0.7
         combined_rect_1 = Rectangle(height=rect_height, width=0.8, color=YELLOW).next_to(random_secret_text[-1], UP, buff=0).align_to(random_number_text[-1], DOWN).shift(2.5*RIGHT + 0.2*DOWN)
@@ -189,6 +193,7 @@ class Sequence3(Scene):
         self.create_clock()
         
         self.play(Create(combined_rect_1))
+        self.wait(1)
 
         # Display the yellow box if it exists
         if self.yellow_box:
@@ -205,6 +210,7 @@ class Sequence3(Scene):
         self.play(
             Transform(self.yellow_box, random_secret_modular_diff_text_1),
         )
+        self.wait(1)
 
         self.add(random_secret_modular_diff_text_1)
         self.remove(self.yellow_box)
@@ -212,6 +218,7 @@ class Sequence3(Scene):
         self.yellow_box = Rectangle(height=0.5, width=0.3, color=YELLOW, fill_opacity=0.3)  # Initialize variable to store the yellow box
 
         self.play(Create(combined_rect_2))
+        self.wait(1)
 
         # Display the yellow box if it exists
         if self.yellow_box:
@@ -230,6 +237,7 @@ class Sequence3(Scene):
         )
         self.add(random_secret_modular_diff_text_2)
         self.remove(self.yellow_box)
+        self.wait(1)
 
         self.play(
             FadeOut(self.circle),
@@ -242,6 +250,7 @@ class Sequence3(Scene):
         self.remove(self.circle)
         self.remove(self.ticks)
         self.remove(self.numbers)
+        self.wait(1)
 
 
         modular_arithmetic_text = MathTex(r"\textbf{Modular Arithmetic}", color=BLUE).scale(1.2)
@@ -281,6 +290,7 @@ class Sequence3(Scene):
             random_number_group,
             random_secret_group,
         )
+        self.wait(1)
 
 
         self.play(
@@ -295,7 +305,6 @@ class Sequence3(Scene):
             division_text,
         )
         self.remove(partial_operations_text)
-
         self.wait(1)
 
         self.play(
@@ -307,5 +316,6 @@ class Sequence3(Scene):
             FadeOut(multiplication_text),
             FadeOut(division_text),
         )
+        self.wait(1)
 
         return []

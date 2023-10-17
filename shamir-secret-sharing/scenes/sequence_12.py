@@ -20,14 +20,6 @@ class Sequence12(Scene):
 
 
     def construct(self):
-        """
-        TODO: Add animation for the following:
-
-        Now, one question that you might have in your mind is how can we
-        recover the unique curve given a set of arbitrary points. We can
-        do this using something called Lagrange Interpolation.
-        """
-
         # Create Axes
         axes = Axes(
             x_range=[0, 5],
@@ -35,6 +27,10 @@ class Sequence12(Scene):
             axis_config={"color": WHITE},
         )
         axes.scale(0.7).shift(DOWN)
+        labels = axes.get_axis_labels(
+            MathTex(r"\textbf{x}").scale(0.7), 
+            MathTex(r"\textbf{y}").scale(0.7)
+        )
 
         s_dot_1 = Dot(point=axes.c2p(1, 4), color=RED)
         s_dot_2 = Dot(point=axes.c2p(2, 9), color=RED)
@@ -46,6 +42,7 @@ class Sequence12(Scene):
 
         self.play(
             Create(axes),
+            Create(labels),
             DrawBorderThenFill(s_dot_1),
             DrawBorderThenFill(s_dot_2),
             DrawBorderThenFill(s_dot_3),
@@ -54,6 +51,7 @@ class Sequence12(Scene):
             Write(s_label_3),
         )
         self.add(axes, s_dot_1, s_dot_2, s_dot_3, s_label_1, s_label_2, s_label_3)
+        self.wait(0.5)
 
         def s_x_values(x):
             return (x+1)**2
@@ -65,6 +63,7 @@ class Sequence12(Scene):
         s_curve_light = curves[1]
         self.play(Create(s_curve))
         self.add(s_curve, s_curve_light)
+        self.wait(0.5)
 
 
         # Define the coordinate pairs
@@ -103,6 +102,7 @@ class Sequence12(Scene):
         ) 
         self.add(s_x)
         self.remove(s_curve)
+        self.wait(0.5)
 
         group = VGroup(s_x, s_label_1, s_label_2, s_label_3)
 
@@ -110,6 +110,7 @@ class Sequence12(Scene):
         self.play(TransformMatchingShapes(group, s_function_representation))
         self.add(s_function_representation)
         self.remove(group)
+        self.wait(0.5)
 
         self.play(
             s_function_representation.animate.scale(0.6).shift(UP).shift(4*LEFT)
@@ -142,6 +143,7 @@ class Sequence12(Scene):
             Write(f_label_3),
         )
         self.add(f_dot_1, f_dot_2, f_dot_3, f_label_1, f_label_2, f_label_3)
+        self.wait(0.5)
 
         def f_x_values(x):
             return (x-2)*(x-3)*2
@@ -153,6 +155,7 @@ class Sequence12(Scene):
         f_curve_light = curves[1]
         self.play(Create(f_curve))
         self.add(f_curve, f_curve_light)
+        self.wait(0.5)
 
         # Define the coordinate pairs
         f_coordinates = [(1, 4), (2, 0), (3, 0)]
@@ -193,7 +196,7 @@ class Sequence12(Scene):
         )
         self.add(f_x, f_function_representation)
         self.remove(f_curve, group)
-
+        self.wait(0.5)
 
 
 
@@ -224,6 +227,7 @@ class Sequence12(Scene):
             Write(g_label_3),
         )
         self.add(g_dot_1, g_dot_2, g_dot_3, g_label_1, g_label_2, g_label_3)
+        self.wait(0.5)
 
         def g_x_values(x):
             return (x-1)*(x-3)*(-9)
@@ -235,6 +239,7 @@ class Sequence12(Scene):
         g_curve_light = curves[1]
         self.play(Create(g_curve))
         self.add(g_curve, g_curve_light)
+        self.wait(0.5)
 
         # Define the coordinate pairs
         g_coordinates = [(1, 0), (2, 9), (3, 0)]
@@ -275,6 +280,7 @@ class Sequence12(Scene):
         )
         self.add(g_x, g_function_representation)
         self.remove(g_curve, group)
+        self.wait(0.5)
 
 
 
@@ -303,6 +309,7 @@ class Sequence12(Scene):
             Write(h_label_3),
         )
         self.add(h_dot_1, h_dot_2, h_dot_3, h_label_1, h_label_2, h_label_3)
+        self.wait(0.5)
 
         def h_x_values(x):
             return (x-1)*(x-2)*(8)
@@ -314,6 +321,7 @@ class Sequence12(Scene):
         h_curve_light = curves[1]
         self.play(Create(h_curve))
         self.add(h_curve, h_curve_light)
+        self.wait(0.5)
 
 
         # Define the coordinate pairs
@@ -355,6 +363,7 @@ class Sequence12(Scene):
         )
         self.add(h_x, h_function_representation)
         self.remove(h_curve, group)
+        self.wait(0.5)
 
 
         rect_height = h_coordinate_pairs.get_height() / 3
@@ -375,6 +384,7 @@ class Sequence12(Scene):
             h_dot_1.animate.set_opacity(1),
         )
         self.add(s_rect, f_rect, g_rect, h_rect)
+        self.wait(0.5)
 
         self.play(
             s_rect.animate.shift(0.55*DOWN),
@@ -390,6 +400,7 @@ class Sequence12(Scene):
             g_dot_2.animate.set_opacity(1),
             h_dot_2.animate.set_opacity(1),
         )
+        self.wait(0.5)
 
         self.play(
             s_rect.animate.shift(0.55*DOWN),
@@ -405,6 +416,7 @@ class Sequence12(Scene):
             g_dot_3.animate.set_opacity(1),
             h_dot_3.animate.set_opacity(1),
         )
+        self.wait(0.5)
 
         self.play(
             FadeOut(s_rect),
@@ -417,6 +429,7 @@ class Sequence12(Scene):
             h_dot_3.animate.set_opacity(0.2),
         )
         self.remove(s_rect, f_rect, g_rect, h_rect)
+        self.wait(0.5)
 
         self.play(
             s_function_representation.animate.shift(0.5*LEFT),
@@ -431,6 +444,7 @@ class Sequence12(Scene):
             f_label_2.animate.set_opacity(1),
             f_label_3.animate.set_opacity(1),
         )
+        self.wait(0.5)
 
 
 
@@ -468,6 +482,7 @@ class Sequence12(Scene):
         )
         self.add(new_f_function_representation)
         self.remove(f_function_representation)
+        self.wait(0.5)
 
         """ dot_1 = Dot(point=axes.c2p(1, 1), color=YELLOW)
         dot_2 = Dot(point=axes.c2p(2, 0), color=YELLOW)
@@ -576,6 +591,7 @@ class Sequence12(Scene):
             g_label_2.animate.set_opacity(1),
             g_label_3.animate.set_opacity(1),
         )
+        self.wait(0.5)
 
         new_g_coordinates = [(1, 0), (2, 1), (3, 0)]
 
@@ -609,6 +625,7 @@ class Sequence12(Scene):
         )
         self.add(new_g_function_representation)
         self.remove(g_function_representation)
+        self.wait(0.5)
 
         """ dot_1 = Dot(point=axes.c2p(1, 0), color=GREEN)
         dot_2 = Dot(point=axes.c2p(2, 1), color=GREEN)
@@ -717,6 +734,7 @@ class Sequence12(Scene):
             h_label_2.animate.set_opacity(1),
             h_label_3.animate.set_opacity(1),
         )
+        self.wait(0.5)
 
         new_h_coordinates = [(1, 0), (2, 0), (3, 1)]
 
@@ -750,6 +768,7 @@ class Sequence12(Scene):
         )
         self.add(new_h_function_representation)
         self.remove(h_function_representation)
+        self.wait(0.5)
 
 
         self.play(
@@ -816,7 +835,7 @@ class Sequence12(Scene):
             h_label_2,
             h_label_3,
         )
-        
+        self.wait(0.5)
         
         
         
@@ -848,7 +867,7 @@ class Sequence12(Scene):
         self.play(Transform(s_function_representation, s_x))
         self.add(s_x)
         self.remove(s_function_representation)
-        
+        self.wait(0.5)
 
 
 
@@ -893,6 +912,7 @@ class Sequence12(Scene):
             f_label_3
         )
         self.remove(new_f_function_representation)
+        self.wait(0.5)
 
         self.play(
             Indicate(f_dot_2, color=YELLOW, scale_factor=1.2),
@@ -900,17 +920,20 @@ class Sequence12(Scene):
             Indicate(f_dot_3, color=YELLOW, scale_factor=1.2),
             Indicate(f_label_3, color=YELLOW),
         )
+        self.wait(0.5)
 
         self.play(
             Indicate(f_dot_1, color=YELLOW, scale_factor=1.2),
             Indicate(f_label_1, color=YELLOW),
         )
+        self.wait(0.5)
 
         self.play(
             FadeOut(f_dot_1),
             FadeOut(f_label_1),
         )
         self.remove(f_dot_1, f_label_1)
+        self.wait(0.5)
 
 
         def new_f_x_values(x):
@@ -934,6 +957,7 @@ class Sequence12(Scene):
         )
         self.add(new_f_curve, f_x_intermediate_evaluation, f_dot_1, f_label_1)
         self.remove(f_curve, f_x_expression)
+        self.wait(0.5)
 
         self.play(
             FadeOut(new_f_curve),
@@ -953,6 +977,7 @@ class Sequence12(Scene):
             f_dot_3,
             f_label_3
         )
+        self.wait(0.5)
         
         
 
@@ -1006,6 +1031,7 @@ class Sequence12(Scene):
             g_label_3
         )
         self.remove(new_g_function_representation)
+        self.wait(0.5)
 
         self.play(
             Indicate(g_dot_1, color=GREEN, scale_factor=1.2),
@@ -1013,17 +1039,20 @@ class Sequence12(Scene):
             Indicate(g_dot_3, color=GREEN, scale_factor=1.2),
             Indicate(g_label_3, color=GREEN),
         )
+        self.wait(0.5)
 
         self.play(
             Indicate(g_dot_2, color=GREEN, scale_factor=1.2),
             Indicate(g_label_2, color=GREEN),
         )
+        self.wait(0.5)
 
         self.play(
             FadeOut(g_dot_2),
             FadeOut(g_label_2),
         )
         self.remove(g_dot_2, g_label_2)
+        self.wait(0.5)
 
 
         def new_g_x_values(x):
@@ -1047,6 +1076,7 @@ class Sequence12(Scene):
         )
         self.add(new_g_curve, g_x_intermediate_evaluation, g_dot_2, g_label_2)
         self.remove(g_curve, g_x_expression)
+        self.wait(0.5)
 
         self.play(
             FadeOut(new_g_curve),
@@ -1066,6 +1096,7 @@ class Sequence12(Scene):
             g_dot_3,
             g_label_3
         )
+        self.wait(0.5)
 
 
 
@@ -1123,6 +1154,7 @@ class Sequence12(Scene):
             #h_label_3
         )
         self.remove(new_h_function_representation)
+        self.wait(0.5)
 
         self.play(
             Indicate(h_dot_1, color=BLUE, scale_factor=1.2),
@@ -1130,6 +1162,7 @@ class Sequence12(Scene):
             Indicate(h_dot_2, color=BLUE, scale_factor=1.2),
             Indicate(h_label_2, color=BLUE),
         )
+        self.wait(0.5)
 
         #self.play(
         #    Indicate(h_dot_3, color=BLUE, scale_factor=1.2),
@@ -1164,6 +1197,7 @@ class Sequence12(Scene):
         )
         self.add(new_h_curve, h_x_intermediate_evaluation, h_dot_3, h_label_3)
         self.remove(h_curve, h_x_expression)
+        self.wait(0.5)
 
         self.play(
             FadeOut(new_h_curve),
@@ -1183,6 +1217,7 @@ class Sequence12(Scene):
             h_dot_3,
             h_label_3
         )
+        self.wait(0.5)
 
 
 
@@ -1225,7 +1260,7 @@ class Sequence12(Scene):
             h_x_intermediate_evaluation.animate.set_opacity(0.2),
         )
         self.add(s_dot_1, s_dot_2, s_dot_3, s_label_1, s_label_2, s_label_3, f_curve)
-
+        self.wait(0.5)
 
         
         
@@ -1243,10 +1278,11 @@ class Sequence12(Scene):
             plus_sign_1.animate.set_opacity(1),
             g_x_intermediate_evaluation.animate.set_opacity(1),
             Transform(f_curve, f_g_curve),
+            run_time=3
         )
         self.add(f_g_curve)
         self.remove(f_curve)
-
+        self.wait(0.5)
 
 
 
@@ -1266,10 +1302,11 @@ class Sequence12(Scene):
             plus_sign_2.animate.set_opacity(1),
             h_x_intermediate_evaluation.animate.set_opacity(1),
             Transform(f_g_curve, f_g_h_curve),
+            run_time=3
         )
         self.add(f_g_h_curve)
         self.remove(f_g_curve)
-
+        self.wait(0.5)
 
 
 
@@ -1294,6 +1331,7 @@ class Sequence12(Scene):
             Write(new_notation)
         )
         self.add(new_notation)
+        self.wait(0.5)
 
         new_s_label_1 = MathTex(r"(x_{i}, y_{i})").scale(0.7).next_to(s_dot_1, UP)
         new_s_label_2 = MathTex(r"(x_{j}, y_{j})").scale(0.7).next_to(s_dot_2, UP+LEFT)
